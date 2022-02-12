@@ -23,6 +23,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
       scope='openid profile email update:current_user'
       useRefreshTokens={true}
       cacheLocation='localstorage'
+      asdf='hola'
     >
       {children}
     </Auth0Provider>
