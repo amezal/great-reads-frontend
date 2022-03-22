@@ -1,10 +1,16 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Button } from '@mantine/core';
 
 function SignupButton() {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithPopup } = useAuth0();
 
-  return <button onClick={() => loginWithRedirect({ screen_hint: 'signup', })}>Sign up</button>;
+  return <Button
+    onClick={() => loginWithPopup({ screen_hint: 'signup', })}
+    variant='gradient'
+  >
+    Sign up
+  </Button>;
 }
 
 export default SignupButton;

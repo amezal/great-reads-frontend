@@ -84,6 +84,38 @@ function DraggableLists({ userBooks }) {
       {books &&
         <DragDropContext onDragEnd={dragEndHandler}>
           <div className="list">
+            <h2>Read</h2>
+            <Droppable droppableId="read">
+              {(dropppableProvided) => (
+                <ul
+                  {...dropppableProvided.droppableProps}
+                  ref={dropppableProvided.innerRef}
+                  className="list"
+                >
+                  {books.read.map((book, index) => (
+                    <Draggable key={book._id} draggableId={book._id} index={index}>
+                      {(draggableProvided) => (
+                        <li
+                          {...draggableProvided.draggableProps}
+                          ref={draggableProvided.innerRef}
+                          {...draggableProvided.dragHandleProps}
+                          className="list__item">
+                          {book.title}
+                          <button onClick={() =>
+                            deleteBook(dropppableProvided.droppableProps['data-rbd-droppable-id'],
+                              draggableProvided.draggableProps['data-rbd-draggable-id'])}>
+                            <FaTimes size="15"></FaTimes>
+                          </button>
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                  {dropppableProvided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </div>
+          <div className="list">
             <h2>Want to read</h2>
             <Droppable droppableId="want">
               {(dropppableProvided) => (
@@ -147,40 +179,6 @@ function DraggableLists({ userBooks }) {
               )}
             </Droppable>
           </div>
-          <div className="list">
-            <h2>Read</h2>
-            <Droppable droppableId="read">
-              {(dropppableProvided) => (
-                <ul
-                  {...dropppableProvided.droppableProps}
-                  ref={dropppableProvided.innerRef}
-                  className="list"
-                >
-                  {books.read.map((book, index) => (
-                    <Draggable key={book._id} draggableId={book._id} index={index}>
-                      {(draggableProvided) => (
-                        <li
-                          {...draggableProvided.draggableProps}
-                          ref={draggableProvided.innerRef}
-                          {...draggableProvided.dragHandleProps}
-                          className="list__item">
-                          {book.title}
-                          <button onClick={() =>
-                            deleteBook(dropppableProvided.droppableProps['data-rbd-droppable-id'],
-                              draggableProvided.draggableProps['data-rbd-draggable-id'])}>
-                            <FaTimes size="15"></FaTimes>
-                          </button>
-                        </li>
-                      )}
-                    </Draggable>
-                  ))}
-                  {dropppableProvided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-          </div>
-
-
         </DragDropContext>
       }
     </div >

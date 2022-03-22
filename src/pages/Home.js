@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import LoginButton from '../components/LoginButton';
-import LogoutButton from '../components/LogoutButton';
+
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 import DraggableLists from '../components/DraggableLists';
@@ -29,19 +27,11 @@ function Home() {
       setData(res.data);
     }
 
-
   }, [isAuthenticated])
-
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
 
 
   return (
     <div>
-
-      <LoginButton />
-      <LogoutButton />
 
       {(isAuthenticated && data) &&
         <div>
