@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 import DraggableLists from '../components/DraggableLists';
+import { Paper, Avatar, Group, Text, ScrollArea } from '@mantine/core'
 
 
 function Home() {
 
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-
 
   const [data, setData] = useState(null);
 
@@ -31,18 +31,19 @@ function Home() {
 
 
   return (
-    <div>
+    <Paper>
 
       {(isAuthenticated && data) &&
-        <div>
-          <img src={user.picture} alt="" />
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
+        <>
+          <Group mb={12}>
+            <Avatar src={user.picture} alt={user.name} size={40} radius='md' />
+            <Text weight={400}>Your book lists</Text>
+          </Group>
           <DraggableLists userBooks={data.books}> </DraggableLists>
-        </div>
+        </>
       }
 
-    </div>
+    </Paper>
   )
 }
 

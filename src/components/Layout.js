@@ -1,36 +1,47 @@
-import { useState } from 'react';
-import { MantineProvider, AppShell, useMantineTheme } from '@mantine/core';
+import React, { useState } from 'react';
+import { MantineProvider, AppShell, ColorSchemeProvider, useMantineTheme } from '@mantine/core';
+import { useLocalStorageValue } from '@mantine/hooks';
 import MyNavbar from './Navbar';
 
 const Layout = ({ children }) => {
-  const [opened, setOpened] = useState(false);
+
+  const [colorScheme, setColorScheme] = useLocalStorageValue({
+    key: 'mantine-color-scheme',
+    defaultValue: 'dark',
+  })
+
   const theme = useMantineTheme();
 
+  console.log(theme);
+
+  const toggleColorScheme = (value) => (
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
+  )
+
   return (
-    <MantineProvider theme={{
-      fontFamily: 'Open Sans',
-      colorScheme: 'dark',
-    }}>
-      <AppShell
-        navbarOffsetBreakpoint="sm"
-        fixed
-        // navbar={
-        //   <Navbar
-        //     p="md"
-        //     hiddenBreakpoint="sm"
-        //     hidden={!opened}
-        //     width={{ sm: 200, lg: 400 }}
-        //   >
-        //     <Text>Hola</Text>
-        //     <Text>Hola2</Text>
-        //   </Navbar>
-        // }
-        padding='xl'
-        header={<MyNavbar />}
-      >
-        {children}
-      </AppShell>
-    </MantineProvider>
+    <ColorSchemeProvider
+      colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider theme={{
+        fontFamily: 'Open Sans',
+        colorScheme,
+      }}>
+        <AppShell
+          fixed
+          padding='xl'
+          header={<MyNavbar />}
+          styles={{
+            main: { minHeight: '50vh', paddingTop: '12px', paddingBottom: '0' },
+            root: { height: '100vh' }
+          }}
+          style={{
+            backgroundColor: colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+          }}
+        >
+          {children}
+        </AppShell>
+      </MantineProvider>
+    </ColorSchemeProvider>
   )
 }
 
