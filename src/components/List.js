@@ -1,22 +1,25 @@
 import React from 'react';
-import { Paper, ScrollArea } from '@mantine/core';
+import { Paper, Title } from '@mantine/core';
 
-const List = ({ children }) => {
+const List = ({ children, title }) => {
 
   return (
-    <Paper direction='column'
+    <Paper
+      direction='column'
       className="list"
       radius='lg'
       shadow='xl'
       sx={(theme) => ({
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.blue[5],
+        width: '30vw',
+        minWidth: '320px',
       })}
     >
-      <ScrollArea
-        style={{ width: '100%', height: '100%' }}
-      >
-        {children}
-      </ScrollArea>
+      <Title order={2} mx='lg' my='xs'
+        style={{ position: 'sticky', fontWeight: '400' }}>
+        {title}
+      </Title>
+      {children}
     </Paper >
   )
 }

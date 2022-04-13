@@ -35,7 +35,7 @@ function Home() {
 
       {(isAuthenticated && data) &&
         <>
-          <Group mb={12}>
+          <Group mb={12} ml={24}>
             <Avatar src={user.picture} alt={user.name} size={40} radius='md' />
             <Text weight={400}>Your book lists</Text>
           </Group>

@@ -76,9 +76,8 @@ function DraggableLists({ userBooks }) {
       {books &&
         <DragDropContext onDragEnd={dragEndHandler}>
           {Object.keys(lists).map((list, i) => (
-            <div className="list">
-              <h2>{lists[list]}</h2>
-              <Droppable droppableId={list}>
+            <List className="list" title={lists[list]} key={list}>
+              <Droppable droppableId={list} style={{}}>
                 {(dropppableProvided) => (
                   <div
                     {...dropppableProvided.droppableProps}
@@ -108,7 +107,7 @@ function DraggableLists({ userBooks }) {
                   </div>
                 )}
               </Droppable>
-            </div>
+            </List>
           ))}
         </DragDropContext>
       }

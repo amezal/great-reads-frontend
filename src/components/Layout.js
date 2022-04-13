@@ -12,8 +12,6 @@ const Layout = ({ children }) => {
 
   const theme = useMantineTheme();
 
-  console.log(theme);
-
   const toggleColorScheme = (value) => (
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
   )
@@ -28,11 +26,11 @@ const Layout = ({ children }) => {
       }}>
         <AppShell
           fixed
-          padding='xl'
+          // padding='xl'
           header={<MyNavbar />}
           styles={{
-            main: { minHeight: '50vh', paddingTop: '12px', paddingBottom: '0' },
-            root: { height: '100vh' }
+            main: { minHeight: '50vh', padding: '0' },
+            root: { minHeight: '100vh', padding: '0' }
           }}
           style={{
             backgroundColor: colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
