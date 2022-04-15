@@ -22,8 +22,8 @@ function SearchBook() {
         data.docs.map(book => (
           <div key={book.key} onClick={() => navigate(`/books/${book.key}`)}>
             <h3>{book.title}</h3>
-            <h4>{book.author_name[0]}</h4>
-            <img src={`https://covers.openlibrary.org/b/id/${book.cover_i || '-1'}-S.jpg`} alt="" />
+            <h4>{book.author_name ? book.author_name[0] : 'Anonymous'}</h4>
+            <img src={`https://covers.openlibrary.org/b/id/${book.cover_i || '-1'}-M.jpg`} alt="" />
           </div>
         ))
       }

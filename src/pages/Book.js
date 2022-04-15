@@ -3,6 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 import StarRating from '../components/StarRating';
+import Reviews from '../components/Reviews';
+import BookCover from '../components/BookCover';
+import { Container, Text, Group, Spoiler } from '@mantine/core';
+import AddToListButton from '../components/AddToListButton';
 
 function Book() {
 
@@ -24,71 +28,71 @@ function Book() {
   }
 
   useEffect(async () => {
+
     const book = await getBook();
     setBook(book);
-    setUserRating(book.userRating);
+
     if (isAuthenticated) {
+      setUserRating(book.userRating || 0);
       setAccessToken(await getAccessTokenSilently());
     }
     setIsLoading(false);
 
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
-  const addToList = async (list) => {
-    if (isAuthenticated) {
-      const serverUrl = process.env.REACT_APP_SERVER_URL;
-      const res = await axios.post(`${serverUrl}/users/current/${list}?book=${id}`,
-        {
-          cover: book.covers[0],
-          title: book.title,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${accessToken}`
-          }
-        });
-
-      const updatedStats = res.data;
-      setBook({ ...book, ...updatedStats });
-    }
-  }
-
-  const updateRating = async (rating) => {
-    if (isAuthenticated) {
-      const serverUrl = process.env.REACT_APP_SERVER_URL;
-      await axios.post(`${serverUrl}/books/${id}/ratings?user=${user.sub}&rating=${rating}`,
-        {
-          headers: {
-            authorization: `Bearer ${accessToken}`
-          }
-        });
-    }
-  }
 
   return (
     <>
       {!isLoading &&
-        <main>
-          <h1>{book.title}</h1>
-          {book.covers &&
-            <img src={`https://covers.openlibrary.org/b/id/${book.covers[0]}-M.jpg`} alt="" />
-          }
-          <button onClick={() => addToList('reading')}>{`Reading: ${book.reading}`}</button>
-          <button onClick={() => addToList('read')}>{`Read: ${book.read}`}</button>
-          <button onClick={() => addToList('want')}>{`Want to read: ${book.want}`}</button>
-          <StarRating
-            currentRating={userRating}
-            updateRating={updateRating} />
-          <p>{book.description}</p>
-          <h2>Authors:</h2>
-          <ul>
-            {book.authors.map(author => (
-              <li key={author.name}>{author.name}</li>
-            ))}
-          </ul>
+        <>
+          <Container style={{ display: 'flex', flexDirection: 'row' }}>
 
-        </main>}
-    </>
+            <Group direction='column' spacing={0}>
+
+              <BookCover book={book} size="L" />
+
+              <Text mt={16} color="gray" weight={700} style={{ fontSize: '14px' }}>
+                {userRating ? 'Your rating:' : 'Rate this book:'}
+              </Text>
+
+              <StarRating currentRating={userRating} accessToken={accessToken} />
+
+
+              <AddToListButton book={book} accessToken={accessToken} setBook={setBook} />
+            </Group>
+
+            <Group spacing={0} direction='column' ml={16} mt="70px" mb="auto" style={{ borderLeft: '1px solid gray', paddingLeft: '16px', justifyContent: 'flex-start' }}>
+              <Text color="gray" style={{ fontSize: '32px' }} >{book.title}</Text>
+
+              <Text color="gray" size="xs" style={{ fontStyle: 'italic' }}>
+                By {book.authors.map(author => author.name).join(', ')}
+              </Text>
+
+              <Group mt="md" spacing='xl'>
+                <Text color="gray" size="xs" weight={700}>
+                  {`Read: ${book.read}`}
+                </Text>
+                <Text color="gray" size="xs" weight={700}>
+                  {`Want to read: ${book.want}`}
+                </Text>
+                <Text color="gray" size="xs" weight={700}>
+                  {`Reading: ${book.reading}`}
+                </Text>
+              </Group>
+              <Text color="gray" size="xs" weight={700}>
+                {`Rating: ${book.rating || 0}`}
+              </Text>
+
+              <Spoiler mt="xl" maxheight={120} showLabel="Show more" hideLabel="Hide" style={{ fontSize: '12px' }}>
+                <Text color="gray" weight={400} style={{ fontSize: '14px', lineHeight: '17px', textAlign: 'justify' }} >
+                  {book.description}
+                </Text>
+              </Spoiler>
+            </Group>
+          </Container>
+          <Reviews reviews={book.reviews} />
+        </>}
+    </ >
   )
 }
 

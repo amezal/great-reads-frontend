@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MantineProvider, AppShell, ColorSchemeProvider, useMantineTheme } from '@mantine/core';
+import { MantineProvider, Global, AppShell, ColorSchemeProvider, useMantineTheme } from '@mantine/core';
 import { useLocalStorageValue } from '@mantine/hooks';
 import MyNavbar from './Navbar';
 
@@ -21,21 +21,25 @@ const Layout = ({ children }) => {
       colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider theme={{
-        fontFamily: 'Open Sans',
+        fontFamily: 'Inter',
         colorScheme,
       }}>
         <AppShell
           fixed
-          // padding='xl'
           header={<MyNavbar />}
           styles={{
-            main: { minHeight: '50vh', padding: '0' },
+            main: { minHeight: '50vh', paddingTop: '76px' },
             root: { minHeight: '100vh', padding: '0' }
           }}
           style={{
             backgroundColor: colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
           }}
         >
+          <Global
+            styles={(theme) => ({
+              fontFamily: 'Inter, Open Sans'
+            })}
+          />
           {children}
         </AppShell>
       </MantineProvider>
