@@ -32,7 +32,7 @@ function Navbar() {
           />
         </MediaQuery> */}
         <UnstyledButton onClick={() => navigate('/')}>
-          <Image src="https://picsum.photos/56/56" alt="logo" radius="lg" />
+          <Image src="https://picsum.photos/52/52" alt="logo" radius="lg" />
         </UnstyledButton>
         <SearchBar />
         {
@@ -40,7 +40,7 @@ function Navbar() {
             <Menu
               control={
                 <UnstyledButton style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Avatar src={user.picture} size={56} alt="logo" radius="lg" />
+                  <Avatar src={user.picture} size={52} alt="logo" radius="lg" />
                 </UnstyledButton>
               }
             >

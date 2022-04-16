@@ -5,7 +5,7 @@ import axios from 'axios';
 import StarRating from '../components/StarRating';
 import Reviews from '../components/Reviews';
 import BookCover from '../components/BookCover';
-import { Container, Text, Group, Spoiler } from '@mantine/core';
+import { Container, Text, Group, Spoiler, MediaQuery, Space } from '@mantine/core';
 import AddToListButton from '../components/AddToListButton';
 
 function Book() {
@@ -45,52 +45,70 @@ function Book() {
     <>
       {!isLoading &&
         <>
-          <Container style={{ display: 'flex', flexDirection: 'row' }}>
+          <MediaQuery query="(max-width: 768px)" styles={{ flexDirection: 'column', alignItems: 'center' }}>
+            <Container style={{ display: 'flex' }}>
+              <MediaQuery query="(max-width: 768px)" styles={{ alignItems: 'center' }}>
+                <Group direction='column' spacing={0} mt={24}>
+                  <MediaQuery query="(min-width: 768px)" styles={{ display: 'none' }}>
+                    <div>
+                      <Text color="gray" style={{ fontSize: '32px', textAlign: 'center' }} >{book.title}</Text>
 
-            <Group direction='column' spacing={0}>
+                      <Text color="gray" size="xs" style={{ fontStyle: 'italic', textAlign: 'center' }}>
+                        By {book.authors.map(author => author.name).join(', ')}
+                      </Text>
+                    </div>
+                  </MediaQuery>
 
-              <BookCover book={book} size="L" />
+                  <BookCover book={book} size="L" />
 
-              <Text mt={16} color="gray" weight={700} style={{ fontSize: '14px' }}>
-                {userRating ? 'Your rating:' : 'Rate this book:'}
-              </Text>
+                  <Text mt={16} color="gray" weight={700} style={{ fontSize: '14px' }}>
+                    {userRating ? 'Your rating:' : 'Rate this book:'}
+                  </Text>
 
-              <StarRating currentRating={userRating} accessToken={accessToken} />
+                  <StarRating currentRating={userRating} accessToken={accessToken} />
+                  <Space h="md" />
+                  <AddToListButton book={book} accessToken={accessToken} setBook={setBook} />
+                </Group>
+              </MediaQuery>
 
+              <MediaQuery query="(min-width: 768px)" styles={{ borderLeft: '1px solid gray', paddingLeft: '16px', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: '16px', marginTop: '70px', marginBottom: 'auto' }}>
+                <Group spacing={0} direction='column' mt="lg" position='center'>
+                  <MediaQuery query="(max-width: 768px)" styles={{ display: 'none' }}>
+                    <div>
+                      <Text color="gray" style={{ fontSize: '32px' }} >{book.title}</Text>
 
-              <AddToListButton book={book} accessToken={accessToken} setBook={setBook} />
-            </Group>
+                      <Text color="gray" size="xs" style={{ fontStyle: 'italic' }}>
+                        By {book.authors.map(author => author.name).join(', ')}
+                      </Text>
+                    </div>
+                  </MediaQuery>
 
-            <Group spacing={0} direction='column' ml={16} mt="70px" mb="auto" style={{ borderLeft: '1px solid gray', paddingLeft: '16px', justifyContent: 'flex-start' }}>
-              <Text color="gray" style={{ fontSize: '32px' }} >{book.title}</Text>
+                  <Group mt="md" spacing='xl'>
+                    <Text color="gray" size="xs" weight={700}>
+                      {`Read: ${book.read}`}
+                    </Text>
+                    <Text color="gray" size="xs" weight={700}>
+                      {`Want to read: ${book.want}`}
+                    </Text>
+                    <Text color="gray" size="xs" weight={700}>
+                      {`Reading: ${book.reading}`}
+                    </Text>
+                  </Group>
+                  <Text color="gray" size="xs" weight={700}>
+                    {`Rating: ${book.rating || 0}`}
+                  </Text>
 
-              <Text color="gray" size="xs" style={{ fontStyle: 'italic' }}>
-                By {book.authors.map(author => author.name).join(', ')}
-              </Text>
+                  <Spoiler mt="xl" maxheight={120} showLabel="Show more" hideLabel="Hide" style={{ fontSize: '12px', maxWidth: '90vw' }}>
+                    <Text color="gray" weight={400} style={{ fontSize: '14px', lineHeight: '17px', textAlign: 'justify', maxWidth: '90vw' }} >
+                      {book.description}
+                    </Text>
+                  </Spoiler>
+                </Group>
+              </MediaQuery>
 
-              <Group mt="md" spacing='xl'>
-                <Text color="gray" size="xs" weight={700}>
-                  {`Read: ${book.read}`}
-                </Text>
-                <Text color="gray" size="xs" weight={700}>
-                  {`Want to read: ${book.want}`}
-                </Text>
-                <Text color="gray" size="xs" weight={700}>
-                  {`Reading: ${book.reading}`}
-                </Text>
-              </Group>
-              <Text color="gray" size="xs" weight={700}>
-                {`Rating: ${book.rating || 0}`}
-              </Text>
-
-              <Spoiler mt="xl" maxheight={120} showLabel="Show more" hideLabel="Hide" style={{ fontSize: '12px' }}>
-                <Text color="gray" weight={400} style={{ fontSize: '14px', lineHeight: '17px', textAlign: 'justify' }} >
-                  {book.description}
-                </Text>
-              </Spoiler>
-            </Group>
-          </Container>
-          <Reviews reviews={book.reviews} />
+            </Container>
+          </MediaQuery>
+          <Reviews reviews={book.reviews} userRating={book.userRating} />
         </>}
     </ >
   )

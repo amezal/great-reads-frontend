@@ -1,15 +1,14 @@
 import React from 'react';
-import { Image, Paper, Text, Center } from '@mantine/core';
-//235*304
+import { Image, Paper, Text } from '@mantine/core';
 
 const BookCover = ({ book, size }) => {
 
-  const cover = book.cover
+  const cover = book.cover;
 
   const sizes = {
     L: { width: 240, height: 380, radius: 24 },
     S: { width: 40, height: 52, radius: 'sm' },
-    M: { width: 80, height: 102 },
+    M: { width: 80, height: 102, radius: 'lg' },
   }
 
   return (
@@ -26,9 +25,8 @@ const BookCover = ({ book, size }) => {
           })}
         >
           <Text style={{ fontSize: sizes[size].width / 12 }} weight={500}>{book.title}</Text>
-          {size === "L" &&
-            <Text style={{ fontSize: sizes[size].width / 16, fontStyle: 'italic' }}>By {book.authors[0].name}</Text>
-          }
+          {/* <Text style={{ fontSize: sizes[size].width / 16, fontStyle: 'italic' }}>By {book.author || book.authors[0].name}</Text> */}
+
         </Paper>
         :
         <Image

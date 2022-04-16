@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { TextInput, NativeSelect } from '@mantine/core';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaChevronDown } from 'react-icons/fa';
 
 
 function SearchBar() {
@@ -30,6 +30,7 @@ function SearchBar() {
         onChange={e => {
           setSearchType(e.target.value.toLowerCase());
         }}
+        rightSection={<FaChevronDown size={14} color="gray" />}
         data={['Books', 'Users', 'Authors']}
         radius='xl'
       />
