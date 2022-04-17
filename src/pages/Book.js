@@ -15,30 +15,38 @@ function Book() {
   const [accessToken, setAccessToken] = useState();
   const { id } = useParams();
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
-  const [userRating, setUserRating] = useState(null);
 
   const getBook = async () => {
     let userId = '';
-    if (isAuthenticated) {
+    if (user) {
       userId = user.sub;
     }
-    const res = await axios.get(`http://localhost:5000/books/${id}?user=${userId}`);
-    console.log(res.data);
-    return res.data;
+    if (!book.userRating) {
+      const res = await axios.get(`http://localhost:5000/books/${id}?user=${userId}`);
+      console.log(userId, res.data);
+      return res.data;
+    }
   }
 
   useEffect(async () => {
 
-    const book = await getBook();
-    setBook(book);
+    if (isLoading) {
 
-    if (isAuthenticated) {
-      setUserRating(book.userRating || 0);
-      setAccessToken(await getAccessTokenSilently());
+      const book = await getBook();
+      setBook((oldBook) => {
+        return { ...oldBook, ...book }
+      });
+
+
+      if (isAuthenticated) {
+        setAccessToken(await getAccessTokenSilently());
+      }
+
+      setIsLoading(false);
     }
-    setIsLoading(false);
 
-  }, [isAuthenticated, user]);
+
+  }, [user]);
 
 
   return (
@@ -62,10 +70,10 @@ function Book() {
                   <BookCover book={book} size="L" />
 
                   <Text mt={16} color="gray" weight={700} style={{ fontSize: '14px' }}>
-                    {userRating ? 'Your rating:' : 'Rate this book:'}
+                    {book.userRating ? 'Your rating:' : 'Rate this book:'}
                   </Text>
 
-                  <StarRating currentRating={userRating} accessToken={accessToken} />
+                  <StarRating setBook={setBook} currentRating={book.userRating} accessToken={accessToken} />
                   <Space h="md" />
                   <AddToListButton book={book} accessToken={accessToken} setBook={setBook} />
                 </Group>
@@ -108,7 +116,7 @@ function Book() {
 
             </Container>
           </MediaQuery>
-          <Reviews reviews={book.reviews} userRating={book.userRating} />
+          <Reviews book={book} setBook={setBook} />
         </>}
     </ >
   )

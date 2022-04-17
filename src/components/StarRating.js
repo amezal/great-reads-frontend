@@ -5,18 +5,21 @@ import { FaStar } from 'react-icons/fa';
 import axios from 'axios';
 import './StarRating.css';
 
-function StarRating({ currentRating, accessToken }) {
-  const [rating, setRating] = useState(currentRating || 0);
+function StarRating({ currentRating, accessToken, setBook }) {
+  // const [rating, setRating] = useState(currentRating);
   const [hover, setHover] = useState(null);
   const { id } = useParams();
   const { isAuthenticated, user, loginWithPopup } = useAuth0();
 
-  useEffect(() => {
-    setRating(currentRating);
-  }, [currentRating])
+  // useEffect(() => {
+  //   setRating(currentRating);
+  // }, [isAuthenticated])
 
   const ratingHandler = (newRating) => {
-    setRating(newRating);
+    setBook(book => ({
+      ...book,
+      userRating: newRating
+    }));
     updateRating(newRating);
   }
   const updateRating = async (rating) => {
@@ -50,7 +53,7 @@ function StarRating({ currentRating, accessToken }) {
               size="35"
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(null)}
-              color={ratingValue <= (hover || rating) ? "#ffc105" : "#e4e5e9"}
+              color={ratingValue <= (hover || currentRating) ? "#ffc105" : "#e4e5e9"}
             ></FaStar>
           </label>
         )

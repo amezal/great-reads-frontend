@@ -9,28 +9,15 @@ import { FaCog, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
 
 function Navbar() {
 
-  const { isAuthenticated, isLoading, logout, user } = useAuth0();
+  const { isAuthenticated, logout, user } = useAuth0();
   const [opened, setOpened] = useState(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
   const navigate = useNavigate();
 
-  // if (isLoading) {
-  //   return <Header></Header>
-  // }
-
   return (
     <Header height={65} p="md">
       <div style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'space-between', padding: '0 24px' }}>
-        {/* <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-          <Burger
-            opened={opened}
-            onClick={() => setOpened((o) => !o)}
-            size="sm"
-            // color={theme.colors.gray[6]}
-            mr="xl"
-          />
-        </MediaQuery> */}
         <UnstyledButton onClick={() => navigate('/')}>
           <Image src="https://picsum.photos/52/52" alt="logo" radius="lg" />
         </UnstyledButton>
