@@ -18,9 +18,11 @@ function User() {
 
   useEffect(async () => {
 
-    if (user.sub.includes(id)) {
-      navigate('/');
-      return;
+    if (user) {
+      if (user.sub.includes(id)) {
+        navigate('/');
+        return;
+      }
     }
 
     const serverUrl = process.env.REACT_APP_SERVER_URL;

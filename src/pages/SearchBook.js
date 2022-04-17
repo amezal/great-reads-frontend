@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, Link } from 'react-router-dom';
+import BookCover from '../components/BookCover';
+import { Group, Text, Paper, Container } from '@mantine/core';
 import axios from 'axios';
 
 function SearchBook() {
@@ -17,17 +19,27 @@ function SearchBook() {
   }, [q, page])
 
   return (
-    <div>
+    <Container size="xs" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: '1rem' }}>
       {data &&
         data.docs.map(book => (
-          <div key={book.key} onClick={() => navigate(`/books/${book.key}`)}>
-            <h3>{book.title}</h3>
-            <h4>{book.author_name ? book.author_name[0] : 'Anonymous'}</h4>
-            <img src={`https://covers.openlibrary.org/b/id/${book.cover_i || '-1'}-M.jpg`} alt="" />
-          </div>
+          <Link key={book.key} to={`/books/${book.key}`} style={{ textDecoration: 'none' }}>
+            <Paper radius={12} p={12} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'nowrap' }}
+              sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.blue[5], })}
+            >
+              <BookCover book={book} size="M" />
+              <Group direction="column" align="flex-start" spacing={0} ml={24}>
+                <Text color="gray" size="xl" >
+                  {book.title}
+                </Text>
+                <Text color="gray" size="xs" style={{ fontStyle: 'italic' }}>
+                  {book.author_name ? book.author_name[0] : 'Anonymous'}
+                </Text>
+              </Group>
+            </Paper>
+          </Link>
         ))
       }
-    </div>
+    </Container>
   )
 }
 
