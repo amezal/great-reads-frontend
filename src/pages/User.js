@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Paper, Group, Avatar, Text } from '@mantine/core';
 import List from '../components/List';
 import Lists from '../components/Lists';
 import BookItem from '../components/BookItem';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -12,8 +13,16 @@ function User() {
 
   const [data, setData] = useState(null);
   const { id } = useParams();
+  const { user } = useAuth0();
+  const navigate = useNavigate();
 
   useEffect(async () => {
+
+    if (user.sub.includes(id)) {
+      navigate('/');
+      return;
+    }
+
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const res = await axios.get(`${serverUrl}/users/${id}`);
     console.log(res.data);
