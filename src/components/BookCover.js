@@ -4,7 +4,7 @@ import { Image, Paper, Text } from '@mantine/core';
 const BookCover = ({ book, size }) => {
 
   const cover = book.cover;
-  console.log(cover);
+
   const sizes = {
     L: { width: 240, height: 380, radius: 24 },
     S: { width: 40, height: 52, radius: 6 },
