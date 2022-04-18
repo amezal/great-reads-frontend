@@ -1,8 +1,13 @@
 .star {
-  cursor:pointer;
+  cursor: pointer;
   transition: color 200ms;
 }
 
 input[type="radio"] {
-  display:none;
+  display: none;
+}
+
+a {
+  color: inherit !important;
+  text-decoration: none !important;
 }

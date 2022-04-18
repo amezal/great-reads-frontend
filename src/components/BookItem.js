@@ -8,7 +8,11 @@ const BookItem = ({ book }) => {
   const navigate = useNavigate();
 
   return (
-    <Paper m={8} height={52}>
+    <Paper m={8} height={52}
+      sx={(theme) => ({
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[4],
+      })}
+    >
       <Group direction='row' noWrap>
         <UnstyledButton onClick={() => navigate(`/books/${book._id}`)} style={{ padding: '6px' }}>
           {/* <Image

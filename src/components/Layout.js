@@ -29,15 +29,15 @@ const Layout = ({ children }) => {
           header={<MyNavbar />}
           styles={{
             main: { minHeight: '50vh', paddingTop: '76px' },
-            root: { minHeight: '100vh', padding: '0' }
+            root: { minHeight: '100vh', padding: '0', backgroundColor: 'red' }
           }}
           style={{
-            backgroundColor: colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+            backgroundColor: colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3],
           }}
         >
           <Global
             styles={(theme) => ({
-              fontFamily: 'Inter, Open Sans'
+              fontFamily: 'Inter, Open Sans',
             })}
           />
           {children}

@@ -10,7 +10,7 @@ const List = ({ children, title }) => {
       radius='lg'
       shadow='xl'
       sx={(theme) => ({
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.blue[5],
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[5],
         width: '30vw',
         minWidth: '320px',
       })}

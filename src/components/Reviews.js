@@ -118,7 +118,7 @@ const Reviews = ({ book, setBook }) => {
                         <FaStar
                           key={i}
                           size={14}
-                          color={review.rating > i ? "#ffc105" : "#e4e5e9"}
+                          color={review.rating > i ? "#ffc105" : "#949598"}
                         />
                       ))
                     }

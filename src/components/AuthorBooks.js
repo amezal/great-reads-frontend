@@ -49,7 +49,7 @@ const AuthorBooks = ({ author }) => {
               >
                 <Paper radius={12} p={12}
                   style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '150px', height: '240px' }}
-                  sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.blue[5], })}
+                  sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[5], })}
                 >
                   <BookCover book={book} size="M" />
                   <Text mt="1rem" size="sm" align="center" color="gray" weight={600}>{shortenTitle(book.title)}</Text>

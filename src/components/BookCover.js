@@ -19,7 +19,7 @@ const BookCover = ({ book, size }) => {
           radius={sizes[size].radius}
           shadow='xl'
           sx={(theme) => ({
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.blue[5],
+            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[6],
             minHeight: sizes[size].height, minWidth: sizes[size].width,
             height: sizes[size].height, width: sizes[size].width,
             display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'

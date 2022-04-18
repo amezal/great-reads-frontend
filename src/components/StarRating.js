@@ -10,7 +10,6 @@ function StarRating({ currentRating, accessToken, setBook }) {
   const [hover, setHover] = useState(null);
   const { id } = useParams();
   const { isAuthenticated, user, loginWithPopup } = useAuth0();
-
   // useEffect(() => {
   //   setRating(currentRating);
   // }, [isAuthenticated])
@@ -53,7 +52,7 @@ function StarRating({ currentRating, accessToken, setBook }) {
               size="35"
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(null)}
-              color={ratingValue <= (hover || currentRating) ? "#ffc105" : "#e4e5e9"}
+              color={ratingValue <= (hover || currentRating) ? "#ffc105" : "#949598"}
             ></FaStar>
           </label>
         )
