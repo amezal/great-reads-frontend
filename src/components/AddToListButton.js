@@ -48,7 +48,7 @@ const AddToListButton = ({ book, accessToken, setBook }) => {
   return (
     <Menu
       control={
-        <Button variant='gradient' style={{ display: 'flex', justifyContent: 'center' }}>
+        <Button variant="gradient" style={{ display: 'flex', justifyContent: 'center' }}>
           {buttonText}
           <Space w='sm' />
           <FaChevronDown />
