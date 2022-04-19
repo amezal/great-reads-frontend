@@ -9,3 +9,53 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.spline-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.cta {
+  position: absolute;
+  top: 40%;
+  right: 25%;
+}
+
+@media only screen and (max-width:1366px) {
+  .cta {
+    right: 18%;
+  }
+}
+
+@media only screen and (max-width:1200px) {
+  .cta {
+    right: 10%;
+  }
+}
+
+@media only screen and (max-width:800px) {
+  .cta {
+    right: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: -70px;
+  }
+}
+
+
+@media only screen and (max-width: 568px) {
+  .cta {
+    top: -300px;
+    font-size: 48px;
+  }
+
+  .cta div {}
+}

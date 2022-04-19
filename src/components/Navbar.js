@@ -3,9 +3,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import LoginButton from '../components/LoginButton';
 import SearchBar from '../components/SearchBar';
-import { Header, UnstyledButton, Image, Menu, Avatar, useMantineColorScheme } from '@mantine/core';
+import { Header, UnstyledButton, Image, Menu, Avatar, useMantineColorScheme, ActionIcon, Group } from '@mantine/core';
 import { FaCog, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
-
+import logo from '../logo.png';
 
 function Navbar() {
 
@@ -16,10 +16,11 @@ function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <Header height={65} p="md">
-      <div style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'space-between', padding: '0 24px' }}>
+    <Header height={65} py="md">
+      <div style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'space-between', padding: '0 12px' }}>
         <UnstyledButton onClick={() => navigate('/')}>
-          <Image src="https://picsum.photos/52/52" alt="logo" radius="lg" />
+          <Image src={logo} width={36} alt="logo" />
+          {/* <img src="/src/logo.png" alt="logo" width={52} height={52} /> */}
         </UnstyledButton>
         <SearchBar />
         {
@@ -37,10 +38,10 @@ function Navbar() {
               <Menu.Item onClick={() => toggleColorScheme()} icon={dark ? <FaSun /> : <FaMoon />}>
                 {dark ? 'Light mode' : 'Dark mode'}
               </Menu.Item>
-
+              {/* 
               <Menu.Item icon={<FaCog />}>
                 Settings
-              </Menu.Item>
+              </Menu.Item> */}
 
               <Menu.Item
                 onClick={() => logout({ returnTo: window.location.origin })}
@@ -51,7 +52,12 @@ function Navbar() {
             </Menu>
             :
             <>
-              <LoginButton />
+              <Group noWrap spacing={8}>
+                <ActionIcon variant="outline" size={36} onClick={() => toggleColorScheme()} >
+                  {dark ? <FaSun size={20} /> : <FaMoon size={20} />}
+                </ActionIcon>
+                <LoginButton />
+              </Group>
             </>
         }
       </div>

@@ -8,6 +8,8 @@ function SignupButton() {
   return <Button
     onClick={() => loginWithPopup({ screen_hint: 'signup', })}
     variant='gradient'
+
+    size="xl"
   >
     Sign up
   </Button>;

@@ -95,6 +95,7 @@ function DraggableLists({ userBooks }) {
                           >
                             <BookItem
                               book={book}
+                              list={list}
                               deleteBook={() =>
                                 deleteBook(dropppableProvided.droppableProps['data-rbd-droppable-id'],
                                   draggableProvided.draggableProps['data-rbd-draggable-id'])}

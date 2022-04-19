@@ -1,18 +1,14 @@
 import React from 'react';
 import { Group, ScrollArea } from '@mantine/core';
-import { useViewportSize } from '@mantine/hooks'
-
 
 const Lists = ({ children }) => {
-
-  const { width, height } = useViewportSize();
 
   return (
     <ScrollArea type='hover'
       mx={16}
       my={12}
       style={{
-        width: '95vw', height: '75vh', position: 'relative'
+        width: '100%', height: '75vh', position: 'relative', margin: 'auto'
       }}>
       <Group position='apart' noWrap grow className="lists"
         style={{

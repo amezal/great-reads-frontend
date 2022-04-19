@@ -13,19 +13,19 @@ function SearchUser() {
   useEffect(async () => {
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const res = await axios.get(`${serverUrl}/search/users?q=${q}&page=${page}`);
-    console.log(res.data);
+    //console.log(res.data);
     setData(res.data);
   }, [q, page])
 
 
   return (
-    <Container size="xs" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: '1rem' }}>
+    <Container mt={24} size="xs" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: '1rem' }}>
       {(data && data.length !== 0) ?
         <>
           {data.map(user => (
             <Link key={user._id} to={`/users/${user._id}`} style={{ textDecoration: 'none' }}>
               <Paper radius={12} p={12} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'nowrap' }}
-                sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.blue[5], })}
+                sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[5], })}
               >
                 {/* <BookCover book={book} size="M" /> */}
                 <Avatar src={user.picture} size={52} alt="logo" radius={12} />

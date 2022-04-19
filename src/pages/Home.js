@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 import DraggableLists from '../components/DraggableLists';
+import Landing from '../components/Landing';
 import { Paper, Avatar, Group, Text, ScrollArea } from '@mantine/core'
-
 
 function Home() {
 
@@ -22,7 +21,7 @@ function Home() {
           authorization: `Bearer ${accessToken}`
         }
       });
-      console.log(res.data);
+      //console.log(res.data);
 
       setData(res.data);
     }
@@ -31,19 +30,33 @@ function Home() {
 
 
   return (
-    <Paper>
+    <>
+      {isAuthenticated ?
 
-      {(isAuthenticated && data) &&
+        <Paper
+          mt={12}
+          sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3] })}
+        >
+          {
+            data &&
+            <>
+              <Group mb={12} ml={24}>
+                <Avatar src={user.picture} alt={user.name} size={40} radius='md' />
+                <Text weight={400}>Your book lists</Text>
+              </Group>
+              <DraggableLists userBooks={data.books}> </DraggableLists>
+            </>
+          }
+        </Paper>
+        :
+
         <>
-          <Group mb={12} ml={24}>
-            <Avatar src={user.picture} alt={user.name} size={40} radius='md' />
-            <Text weight={400}>Your book lists</Text>
-          </Group>
-          <DraggableLists userBooks={data.books}> </DraggableLists>
+          {!isLoading &&
+            <Landing />
+          }
         </>
       }
-
-    </Paper>
+    </>
   )
 }
 

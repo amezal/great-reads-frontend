@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BookCover from './BookCover';
-import { Paper, Text, Image, Group, UnstyledButton } from '@mantine/core';
+import { Paper, Text, Image, Group, UnstyledButton, Menu } from '@mantine/core';
+import { FaTrash, FaEllipsisV } from 'react-icons/fa';
 
-const BookItem = ({ book }) => {
+const BookItem = ({ book, deleteBook, list }) => {
 
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ const BookItem = ({ book }) => {
       })}
     >
       <Group direction='row' noWrap>
-        <UnstyledButton onClick={() => navigate(`/books/${book._id}`)} style={{ padding: '6px' }}>
+        <UnstyledButton onClick={() => navigate(`/books/${book._id}`)} style={{ padding: '6px', position: 'relative' }}>
           {/* <Image
             src={`https://covers.openlibrary.org/b/id/${book.cover}-S.jpg`}
             alt={book.title}
@@ -26,8 +27,24 @@ const BookItem = ({ book }) => {
           <BookCover book={book} size="S" />
         </UnstyledButton>
         <Text>{book.title}</Text>
+        {
+          deleteBook &&
+          <Menu
+            style={{ marginLeft: 'auto', marginRight: '1rem' }}
+            control={
+              <UnstyledButton style={{ display: 'flex', justifyContent: 'center' }}>
+                <FaEllipsisV size={16} color="gray" radius="lg" />
+              </UnstyledButton>
+            }>
+
+            <Menu.Item onClick={() => { deleteBook(book._id, list) }} icon={<FaTrash />}>
+              Delete
+            </Menu.Item>
+
+          </Menu>
+        }
       </Group>
-    </Paper>
+    </Paper >
   )
 }
 

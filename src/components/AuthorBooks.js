@@ -26,7 +26,7 @@ const AuthorBooks = ({ author }) => {
   }
 
   const shortenTitle = (str) => {
-    console.log(str.length)
+    //console.log(str.length)
     if (str.length >= 40) {
       return str.slice(0, 40) + '...';
     } else {

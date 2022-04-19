@@ -14,17 +14,18 @@ function SearchBook() {
   useEffect(async () => {
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const res = await axios.get(`${serverUrl}/search/books?q=${q}&page=${page}`);
-    console.log(res.data);
+    //console.log(res.data);
     setData(res.data);
   }, [q, page])
 
   return (
-    <Container size="xs" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: '1rem' }}>
-      {data &&
+    <Container mt={24} size="xs" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: '1rem' }}>
+      {
+        data &&
         data.docs.map(book => (
           <Link key={book.key} to={`/books/${book.key}`} style={{ textDecoration: 'none' }}>
             <Paper radius={12} p={12} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'nowrap' }}
-              sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.blue[5], })}
+              sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[5], })}
             >
               <BookCover book={book} size="M" />
               <Group direction="column" align="flex-start" spacing={0} ml={24}>
@@ -39,7 +40,7 @@ function SearchBook() {
           </Link>
         ))
       }
-    </Container>
+    </Container >
   )
 }
 

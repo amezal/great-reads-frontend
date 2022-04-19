@@ -6,8 +6,3 @@
 input[type="radio"] {
   display: none;
 }
-
-a {
-  color: inherit !important;
-  text-decoration: none !important;
-}

@@ -32,7 +32,7 @@ const AddToListButton = ({ book, accessToken, setBook }) => {
       setBook({ ...book, isInList: list, [list]: book[list] + 1, [book.isInList]: book[book.isInList] - 1 });
       await axios.post(`${serverUrl}/users/current/${list}?book=${id}`,
         {
-          cover: book.covers ? book.covers[0] : '-1',
+          cover: book.cover,
           title: book.title,
         },
         {

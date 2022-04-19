@@ -27,7 +27,7 @@ function User() {
 
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const res = await axios.get(`${serverUrl}/users/${id}`);
-    console.log(res.data);
+    //console.log(res.data);
     setData(res.data);
   }, [])
 
@@ -36,10 +36,13 @@ function User() {
     want: 'Want to read',
     reading: 'Reading',
   }
-  console.log(data);
+  //console.log(data);
 
   return (
-    <Paper>
+    <Paper
+      mt={12}
+      sx={(theme) => ({ backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3] })}
+    >
 
       {data &&
         <>

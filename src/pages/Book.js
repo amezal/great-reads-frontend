@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 import StarRating from '../components/StarRating';
 import Reviews from '../components/Reviews';
 import BookCover from '../components/BookCover';
-import { Container, Text, Group, Spoiler, MediaQuery, Space } from '@mantine/core';
+import { Container, Text, Group, Spoiler, MediaQuery, Space, useMantineTheme } from '@mantine/core';
 import AddToListButton from '../components/AddToListButton';
 
 function Book() {
@@ -15,15 +15,18 @@ function Book() {
   const [accessToken, setAccessToken] = useState();
   const { id } = useParams();
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
+  const theme = useMantineTheme();
+  // console.log(theme);
 
   const getBook = async () => {
     let userId = '';
+    const url = process.env.REACT_APP_SERVER_URL;
     if (user) {
       userId = user.sub;
     }
     if (!book.userRating) {
-      const res = await axios.get(`http://localhost:5000/books/${id}?user=${userId}`);
-      console.log(userId, res.data);
+      const res = await axios.get(`${url}/books/${id}?user=${userId}`);
+      // console.log(userId, res.data);
       return res.data;
     }
   }
@@ -61,8 +64,18 @@ function Book() {
                     <div>
                       <Text color="gray" style={{ fontSize: '32px', textAlign: 'center' }} >{book.title}</Text>
 
-                      <Text color="gray" size="xs" style={{ fontStyle: 'italic', textAlign: 'center' }}>
-                        By {book.authors.map(author => author.name).join(', ')}
+                      <Text color="gray" size="xs" style={{ fontStyle: 'italic', textAlign: 'center', }}>
+                        By {book.authors.map((author, i) => (
+                          <Link style={{
+                            textDecoration: 'none',
+                            color: 'unset',
+                          }}
+                            to={`/authors/${author.id}`} key={author.id}>
+                            <Text color="gray" size="xs" style={{ fontStyle: 'italic', textAlign: 'center', }}>
+                              {i >= book.authors.length - 1 ? author.name : author.name + ', '}
+                            </Text>
+                          </Link>
+                        ))}
                       </Text>
                     </div>
                   </MediaQuery>
@@ -86,7 +99,12 @@ function Book() {
                       <Text color="gray" style={{ fontSize: '32px' }} >{book.title}</Text>
 
                       <Text color="gray" size="xs" style={{ fontStyle: 'italic' }}>
-                        By {book.authors.map(author => author.name).join(', ')}
+                        By {book.authors.map((author, i) => (
+                          <Link style={{ textDecoration: 'none', color: 'inherit', }}
+                            to={`/authors/${author.id}`} key={author.id}>
+                            {i >= book.authors.length - 1 ? author.name : author.name + ', '}
+                          </Link>
+                        ))}
                       </Text>
                     </div>
                   </MediaQuery>

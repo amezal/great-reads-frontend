@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
-import StarRating from '../components/StarRating';
-import Reviews from '../components/Reviews';
-import BookCover from '../components/BookCover';
-import { Container, Text, Group, Spoiler, MediaQuery, Space, Avatar } from '@mantine/core';
+import AuthorBooks from '../components/AuthorBooks';
+import { Container, Text, Group, Spoiler, MediaQuery, Avatar } from '@mantine/core';
 
 function Author() {
   const [author, setAuthor] = useState({});
@@ -15,10 +13,10 @@ function Author() {
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
 
   const getAuthor = async () => {
-    const res = await axios.get(`http://localhost:5000/authors/${id}`);
-    console.log(res.data);
+    const url = process.env.REACT_APP_SERVER_URL
+    const res = await axios.get(`${url}/authors/${id}`);
+    //console.log(res.data);
     return res.data;
-
   }
 
   useEffect(async () => {
@@ -33,9 +31,6 @@ function Author() {
     }
 
     setIsLoading(false);
-
-
-
   }, []);
 
 
@@ -83,7 +78,7 @@ function Author() {
 
             </Container>
           </MediaQuery>
-          {/* <Reviews book={book} setBook={setBook} /> */}
+          <AuthorBooks author={author} />
         </>}
     </ >
   )

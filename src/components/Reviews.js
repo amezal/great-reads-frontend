@@ -42,7 +42,7 @@ const Reviews = ({ book, setBook }) => {
         content: value
       })
       setBook({ ...book, reviews: newReviews })
-      console.log(book.userRating);
+      //console.log(book.userRating);
 
       await axios.post(`${serverUrl}/books/${id}/reviews?user=${user.sub}`,
         {

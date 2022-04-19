@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
           fixed
           header={<MyNavbar />}
           styles={{
-            main: { minHeight: '50vh', paddingTop: '76px' },
+            main: { minHeight: '50vh', paddingTop: '64px' },
             root: { minHeight: '100vh', padding: '0', backgroundColor: 'red' }
           }}
           style={{
