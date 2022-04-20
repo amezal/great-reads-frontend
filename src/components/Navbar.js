@@ -3,13 +3,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import LoginButton from '../components/LoginButton';
 import SearchBar from '../components/SearchBar';
-import { Header, UnstyledButton, Image, Menu, Avatar, useMantineColorScheme, ActionIcon, Group } from '@mantine/core';
-import { FaCog, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
+import { Header, UnstyledButton, Image, Menu, Avatar, useMantineColorScheme, ActionIcon, Group, MediaQuery, Burger } from '@mantine/core';
+import { FaCog, FaSignOutAlt, FaMoon, FaSun, FaSignInAlt } from 'react-icons/fa';
 import logo from '../logo.png';
 
 function Navbar() {
 
-  const { isAuthenticated, logout, user } = useAuth0();
+  const { isAuthenticated, logout, user, loginWithPopup } = useAuth0();
   const [opened, setOpened] = useState(false);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
@@ -28,7 +28,7 @@ function Navbar() {
             <Menu
               control={
                 <UnstyledButton style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Avatar src={user.picture} size={52} alt="logo" radius="lg" />
+                  <Avatar src={user.picture} size={36} alt="logo" radius="md" />
                 </UnstyledButton>
               }
             >
@@ -52,12 +52,50 @@ function Navbar() {
             </Menu>
             :
             <>
-              <Group noWrap spacing={8}>
-                <ActionIcon variant="outline" size={36} onClick={() => toggleColorScheme()} >
-                  {dark ? <FaSun size={20} /> : <FaMoon size={20} />}
-                </ActionIcon>
-                <LoginButton />
-              </Group>
+              <MediaQuery
+                query="(min-width: 568px)"
+                styles={{ display: 'none' }}
+              >
+                <Menu
+                  control={
+                    <Burger
+                      opened={opened}
+                      onClick={() => setOpened(o => !o)}
+                    />
+                  }
+                >
+                  <Menu.Label>Application</Menu.Label>
+
+                  <Menu.Item onClick={() => {
+                    toggleColorScheme();
+                    setOpened(o => !o)
+                  }}
+                    icon={dark ? <FaSun /> : <FaMoon />}>
+                    {dark ? 'Light mode' : 'Dark mode'}
+                  </Menu.Item>
+
+                  <Menu.Item
+                    onClick={() => {
+                      loginWithPopup({ returnTo: window.location.origin });
+                      setOpened(o => o);
+                    }}
+                    icon={<FaSignInAlt />}
+                  >
+                    Log In
+                  </Menu.Item>
+                </Menu>
+              </MediaQuery>
+              <MediaQuery
+                query="(max-width: 568px)"
+                styles={{ display: 'none' }}
+              >
+                <Group noWrap spacing={8}>
+                  <ActionIcon variant="outline" size={36} onClick={() => toggleColorScheme()} >
+                    {dark ? <FaSun size={20} /> : <FaMoon size={20} />}
+                  </ActionIcon>
+                  <LoginButton />
+                </Group>
+              </MediaQuery>
             </>
         }
       </div>

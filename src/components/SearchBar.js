@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { TextInput, NativeSelect, Button, Menu, Space } from '@mantine/core';
+import { TextInput, MediaQuery, Button, Menu, Space } from '@mantine/core';
 import { FaSearch, FaChevronDown } from 'react-icons/fa';
 
 
@@ -32,18 +32,12 @@ function SearchBar() {
         icon={<FaSearch size={14} />}
         radius='xl'
         size="xs"
+        ml="md"
       />
-      {/* <NativeSelect
-        onChange={e => {
-          setSearchType(e.target.value.toLowerCase());
-        }}
-        rightSection={<FaChevronDown size={14} color="gray" />}
-        data={['Books', 'Users', 'Authors']}
-        radius='xl'
-      /> */}
       <Menu
+        mr="md"
         control={
-          <Button radius="xl" size="xs" variant="outline" style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button p="xs" radius="xl" size="xs" variant="outline" style={{ display: 'flex', justifyContent: 'center' }}>
             {buttonText}
             <Space w='sm' />
             <FaChevronDown />

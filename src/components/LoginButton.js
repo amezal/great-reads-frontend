@@ -6,7 +6,7 @@ function LoginButton() {
   const { loginWithPopup } = useAuth0();
 
   return <Button
-    onClick={() => loginWithPopup()}
+    onClick={() => loginWithPopup({ returnTo: window.location.origin })}
     variant='outline'
   >
     Log In
