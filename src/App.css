@@ -26,6 +26,10 @@ a {
   right: 25%;
 }
 
+.landing {
+  flex-direction: column;
+}
+
 @media only screen and (max-width:1366px) {
   .cta {
     right: 18%;
@@ -41,19 +45,30 @@ a {
 @media only screen and (max-width:800px) {
   .cta {
     right: auto;
-    position: relative;
+    /* position: relative; */
+    position: unset;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    top: -70px;
+    text-align: center;
+    margin-bottom: 2rem;
+    /* top: -70px; */
+  }
+
+  .landing {
+    flex-direction: column-reverse;
+  }
+
+  .spline-canvas {
+    height: 50%;
   }
 }
 
 
 @media only screen and (max-width: 568px) {
   .cta {
-    top: -220px;
+    /* top: -220px; */
     font-size: 48px;
   }
 
