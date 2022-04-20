@@ -22,7 +22,6 @@ const Landing = () => {
     const { innerWidth: width, innerHeight: height } = window;
     const bookObject = spline.findObjectByName('untitled');
     // console.log(spline.findObjectByName('Personal Camera'))
-    console.log(bookObject);
     if (width > 1366) {
       bookObject.position.x = -250;
       Object.keys(bookObject.scale).forEach(axis => {
