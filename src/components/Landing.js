@@ -56,7 +56,7 @@ const Landing = () => {
 
   return (
     <Container fluid style={{ padding: '0', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <Spline scene="https://draft.spline.design/fTN-GV20a39q1lyp/scene.spline"
+      <Spline scene="https://draft.spline.design/lqgAHt9WY14s1v9f/scene.spline"
         style={{ width: '100%', height: '100%' }} className="spline-canvas"
         onLoad={(spline) => {
           setSpline(spline);
