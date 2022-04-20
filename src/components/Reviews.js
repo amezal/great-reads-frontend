@@ -14,10 +14,12 @@ const Reviews = ({ book, setBook }) => {
 
   useEffect(() => {
 
-    const userReview = book.reviews.find(review => user.sub.includes(review._id));
-    // console.log(userReview);
-    if (userReview) {
-      setValue(book.reviews.find(review => user.sub.includes(review._id)).content)
+    if (user) {
+      const userReview = book.reviews.find(review => user.sub.includes(review._id));
+      // console.log(userReview);
+      if (userReview) {
+        setValue(book.reviews.find(review => user.sub.includes(review._id)).content)
+      }
     }
 
   }, [book])

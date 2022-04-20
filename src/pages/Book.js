@@ -121,7 +121,7 @@ function Book() {
                     </Text>
                   </Group>
                   <Text color="gray" size="xs" weight={700}>
-                    {`Rating: ${book.rating || 0}`}
+                    {`Rating: ${book.rating.toFixed(1) || 0}`}
                   </Text>
 
                   <Spoiler mt="xl" maxheight={120} showLabel="Show more" hideLabel="Hide" style={{ fontSize: '12px', maxWidth: '90vw' }}>
