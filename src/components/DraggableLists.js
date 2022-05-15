@@ -83,6 +83,7 @@ function DraggableLists({ userBooks }) {
                     {...dropppableProvided.droppableProps}
                     ref={dropppableProvided.innerRef}
                     className="list"
+                    style={{ minHeight: '80px' }}
                   >
                     {books[list].map((book, index) => (
                       <Draggable key={book._id} draggableId={book._id} index={index}>
